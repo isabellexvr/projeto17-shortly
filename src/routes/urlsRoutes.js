@@ -9,10 +9,8 @@ urlsRoutes.get("/urls/:id", findUrlById)
 
 urlsRoutes.get("/urls/open/:shortUrl", redirectToUrl)
 
-urlsRoutes.use(tokenValidation)
+urlsRoutes.post("/urls/shorten", urlModelValidation, tokenValidation, shortUrl)
 
-urlsRoutes.post("/urls/shorten", urlModelValidation, shortUrl)
-
-urlsRoutes.delete("/urls/:id", deleteUrl)
+urlsRoutes.delete("/urls/:id", tokenValidation, deleteUrl)
 
 export default urlsRoutes;

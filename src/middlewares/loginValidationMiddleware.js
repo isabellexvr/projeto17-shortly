@@ -1,8 +1,15 @@
 import bcrypt from "bcrypt";
 import { connectionDB } from "../database/db.js";
+import loginModel from "../models/loginModel.js";
 
 export default async function loginValidation(req, res, next) {
   const { email, password } = req.body;
+  const { error } = loginModel.validate(req.body);
+  if (error) {
+    const errors = error.details.map((detail) => detail.message);
+    console.log(errors);
+    return res.status(422).send(errors);
+  }
   try {
     const userExists = await connectionDB.query(
       "SELECT * FROM users WHERE email=$1",
