@@ -4,12 +4,19 @@ import { connectionDB } from "../database/db.js";
 export async function shortUrl(req, res) {
   const { url } = req.body;
   const shortedUrl = nanoid(8);
-
+  const userId = res.locals.userId;
   try {
+    const verifyUrl = await connectionDB.query(
+      `SELECT * FROM urls WHERE "userId"=$1 AND url=$2;`,
+      [userId, url]
+    );
+    if (verifyUrl.rows.length > 0) {
+      return res.status(404).send("Esta mesma url já foi encurtada.");
+    }
     await connectionDB.query(
-      `INSERT INTO urls ("shortUrl", url) 
-      VALUES ($1, $2);`,
-      [shortedUrl, url]
+      `INSERT INTO urls ("shortUrl", url, "userId") 
+      VALUES ($1, $2, $3);`,
+      [shortedUrl, url, userId]
     );
     res.status(201).send({
       shortUrl: shortedUrl,
