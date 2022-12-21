@@ -7,6 +7,8 @@ const urlsRoutes = Router();
 
 urlsRoutes.use(tokenValidation)
 
-urlsRoutes.post("/shorten", urlModelValidation, shortUrl)
+urlsRoutes.post("/urls/shorten", urlModelValidation, shortUrl)
+
+
 
 export default urlsRoutes;
