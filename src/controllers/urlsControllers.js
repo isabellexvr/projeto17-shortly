@@ -8,7 +8,7 @@ export async function shortUrl(req, res) {
   try {
     await connectionDB.query(
       `INSERT INTO urls ("shortUrl", url) 
-      VALUES ($1, $2)`,
+      VALUES ($1, $2);`,
       [shortedUrl, url]
     );
     res.status(201).send({
@@ -24,7 +24,7 @@ export async function findUrlById(req, res) {
   const { id } = req.params;
   try {
     const { rows } = await connectionDB.query(
-      `SELECT * FROM urls WHERE id=$1`,
+      `SELECT * FROM urls WHERE id=$1;`,
       [id]
     );
     if (rows.length < 1) {
@@ -49,7 +49,7 @@ export async function redirectToUrl(req, res) {
     if (rows.length < 1) {
       return res.status(404).send("A url correspondente não foi encontrada.");
     }
-    res.redirect(rows[0].url);
+    res.redirect(200, rows[0].url);
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
