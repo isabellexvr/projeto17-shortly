@@ -9,6 +9,6 @@ urlsRoutes.use(tokenValidation)
 
 urlsRoutes.post("/urls/shorten", urlModelValidation, shortUrl)
 
-
+urlsRoutes.get("/urls/:id")
 
 export default urlsRoutes;
