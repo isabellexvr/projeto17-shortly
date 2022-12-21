@@ -1,5 +1,5 @@
 import { connectionDB } from "../database/db.js";
 
-export async function findRanking(req,res){
+export default async function findRanking(req,res){
     
 }
