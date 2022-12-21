@@ -20,4 +20,21 @@ export async function shortUrl(req, res) {
   }
 }
 
-export async function findUrlById(req, res) {}
+export async function findUrlById(req, res) {
+  const { id } = req.params;
+  try {
+    const { rows } = await connectionDB.query(
+      `SELECT * FROM urls WHERE id=$1`,
+      [id]
+    );
+    if (rows.length < 1) {
+      return res
+        .status(404)
+        .send("Não foi encontrada nenhuma url correspondente a esse id.");
+    }
+    res.status(200).send(rows[0]);
+  } catch (err) {
+    res.status(500).send(err.message);
+    console.log(err.message);
+  }
+}
