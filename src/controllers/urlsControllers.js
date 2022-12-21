@@ -38,3 +38,20 @@ export async function findUrlById(req, res) {
     console.log(err.message);
   }
 }
+
+export async function redirectToUrl(req, res) {
+  const { shortUrl } = req.params;
+  try {
+    const { rows } = await connectionDB.query(
+      `SELECT * FROM urls WHERE "shortUrl"=$1`,
+      [shortUrl]
+    );
+    if(rows.length<1){
+        return res.status(404).send("A url correspondente não foi encontrada.")
+    }
+    res.redirect(rows[0].url)
+  } catch (err) {
+    res.status(500).send(err.message);
+    console.log(err.message);
+  }
+}

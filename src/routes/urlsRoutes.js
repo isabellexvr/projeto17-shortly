@@ -7,6 +7,8 @@ const urlsRoutes = Router();
 
 urlsRoutes.get("/urls/:id", findUrlById)
 
+urlsRoutes.get("/urls/open/:shortUrl", )
+
 urlsRoutes.use(tokenValidation)
 
 urlsRoutes.post("/urls/shorten", urlModelValidation, shortUrl)
