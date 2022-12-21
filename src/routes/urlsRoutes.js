@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { tokenValidation } from "../middlewares/tokenValidationMiddleware.js";
 import urlModelValidation from "../middlewares/urlModelValidationMiddleware.js";
-import { shortUrl, findUrlById, redirectToUrl } from "../controllers/urlsControllers.js";
+import { shortUrl, findUrlById, redirectToUrl, deleteUrl } from "../controllers/urlsControllers.js";
 
 const urlsRoutes = Router();
 
@@ -13,8 +13,6 @@ urlsRoutes.use(tokenValidation)
 
 urlsRoutes.post("/urls/shorten", urlModelValidation, shortUrl)
 
-urlsRoutes.delete("/urls/:id", )
-
-
+urlsRoutes.delete("/urls/:id", deleteUrl)
 
 export default urlsRoutes;

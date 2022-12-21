@@ -5,8 +5,8 @@ import loginValidation from "../middlewares/loginValidationMiddleware.js";
 
 const authRoutes = Router();
 
-authRoutes.post("/signin", registrationValidation, registration);
+authRoutes.post("/signup", registrationValidation, registration);
 
-authRoutes.post("/signup", loginValidation, login);
+authRoutes.post("/signin", loginValidation, login);
 
 export default authRoutes;
