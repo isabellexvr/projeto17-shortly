@@ -24,5 +24,6 @@ export async function tokenValidation(req, res, next) {
     res.status(500).send(err.message);
     console.log(err.message);
   }
+  res.locals.userId = sessionExists.rows[0].userId
   next();
 }
