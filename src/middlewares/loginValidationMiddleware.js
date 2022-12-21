@@ -12,14 +12,14 @@ export default async function loginValidation(req, res, next) {
   }
   try {
     const userExists = await connectionDB.query(
-      "SELECT * FROM users WHERE email=$1",
+      "SELECT * FROM users WHERE email=$1;",
       [email]
     );
     if (userExists.rows.length < 1) {
       return res.status(401).send("Esse e-mail não está cadastrado.");
     }
     const sessionExists = await connectionDB.query(
-      "SELECT * FROM sessions WHERE userId=$1",
+      `SELECT * FROM sessions WHERE "userId"=$1;`,
       [userExists.rows[0].id]
     );
     if (sessionExists.rows.length > 0) {
@@ -31,13 +31,14 @@ export default async function loginValidation(req, res, next) {
       password,
       userExists.rows[0].password
     );
-    if (comparePasswords) {
+    if (!comparePasswords) {
       return res.status(401).send("Senha incorreta.");
     }
+    res.locals.userId = userExists.rows[0].id;
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
   }
-  res.locals.userId = userExists.rows[0].id;
+
   next();
 }

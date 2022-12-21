@@ -7,11 +7,9 @@ export function insertUser(name, email, hiddenPassword) {
   );
 }
 
-export function insertSession(token, userId){
-    return (
-        connectionDB.query("INSERT INTO sessions (token, userId)", [
-            token,
-            userId,
-          ])
-    )
+export function insertSession(token, userId) {
+  return connectionDB.query(
+    `INSERT INTO sessions (token, "userId") VALUES ($1, $2);`,
+    [token, userId]
+  );
 }

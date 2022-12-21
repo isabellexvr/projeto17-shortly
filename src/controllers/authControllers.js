@@ -2,8 +2,6 @@ import bcrypt from "bcrypt";
 import { v4 as uuidV4 } from "uuid";
 import { insertUser, insertSession } from "../repositories/authRepositories.js";
 
-
-
 export async function registration(req, res) {
   const { name, email, password } = req.body;
   try {
@@ -15,8 +13,6 @@ export async function registration(req, res) {
     console.log(err.message);
   }
 }
-
-
 
 export async function login(req, res) {
   const token = uuidV4();
