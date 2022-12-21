@@ -17,7 +17,6 @@ export default async function registrationValidation(req,res,next){
         if(verifyEmail.rows.length > 0){
             return res.status(409).send("Esse e-mail já está cadastrado.")
         }
-        //verificar se o email já está cadastrado
     }catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
