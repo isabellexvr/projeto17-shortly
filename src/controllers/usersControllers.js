@@ -8,15 +8,17 @@ export default async function findAllUrlsById(req, res) {
         SELECT 
             users.id, 
             users.name, 
-            COUNT(urls."visitCount") AS "visitCount", 
+            COUNT(urls."visits") AS "visitCount", 
             urls.* 
         FROM users 
         JOIN urls ON users.id=urls."userId"
-        WHERE users.id=$1;
+        WHERE users.id=$1
+        GROUP BY urls.id, users.id
+        ;
         `,
       [userId]
     )
-    console.log(rows)
+    res.send(rows)
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);

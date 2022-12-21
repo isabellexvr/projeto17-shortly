@@ -56,6 +56,10 @@ export async function redirectToUrl(req, res) {
     if (rows.length < 1) {
       return res.status(404).send("A url correspondente não foi encontrada.");
     }
+    await connectionDB.query(`UPDATE urls SET visits=$1 WHERE "shortUrl"=$2`, [
+      rows[0].visits + 1,
+      shortUrl,
+    ]);
     res.redirect(200, rows[0].url);
   } catch (err) {
     res.status(500).send(err.message);
@@ -72,9 +76,7 @@ export async function deleteUrl(req, res) {
       [id, userId]
     );
     if (urlExists.rows.length < 1) {
-      return res
-        .status(404)
-        .send("A url não existe ou não pertence a esse usuário.");
+      return res.status(404).send("A url não existe.");
     }
     await connectionDB.query(`DELETE FROM urls WHERE id=$1`, [id]);
     res.status(204).send("Url excluída com sucesso.");
