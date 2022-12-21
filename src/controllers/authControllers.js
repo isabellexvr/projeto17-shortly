@@ -1,15 +1,13 @@
 import { connectionDB } from "../database/db.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidV4 } from "uuid";
+import { insertUser, insertSession } from "../repositories/authRepositories.js";
 
 export async function registration(req, res) {
   const { name, email, password } = req.body;
   try {
-    const hidePassword = bcrypt.hashSync(password, 10);
-    await connectionDB.query(
-      "INSERT INTO users (name, email, password) VALUES ($1,$2,$3)",
-      [name, email, hidePassword]
-    );
+    const hiddenPassword = bcrypt.hashSync(password, 10);
+    await insertUser(name, email, hiddenPassword);
     res.status(201).send("Usuário registrado com sucesso!");
   } catch (err) {
     res.status(500).send(err.message);
@@ -17,17 +15,12 @@ export async function registration(req, res) {
   }
 }
 
-//fazer middleware do login
-
 export async function login(req, res) {
   const token = uuidV4();
-  const userId = res.locals.userId
+  const userId = res.locals.userId;
   try {
-    await connectionDB.query("INSERT INTO sessions (token, userId)", [
-      token,
-      userId,
-    ]);
-    res.status(200).send("Login realizado com sucesso!")
+    await insertSession(token, userId);
+    res.status(200).send("Login realizado com sucesso!");
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
