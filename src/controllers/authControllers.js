@@ -19,6 +19,7 @@ export async function login(req, res) {
   const userId = res.locals.userId;
   try {
     await insertSession(token, userId);
+    console.log(token)
     res.status(200).send("Login realizado com sucesso!");
   } catch (err) {
     res.status(500).send(err.message);
