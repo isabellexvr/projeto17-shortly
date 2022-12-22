@@ -8,11 +8,11 @@ export default async function findAllUrlsById(req, res) {
       SELECT 
         us.id, 
         us.name, 
-        COUNT(ur.visits) AS "visitsCount", 
+        COUNT(ur."visitsCounter") AS "visitsCount", 
         ur.id AS "urlId",
-        ur."shortUrl",
+        ur."shortenedUrl",
         ur.url,
-        ur.visits AS "singleUrlVisits"
+        ur."visitsCounter" AS "singleUrlVisits"
       FROM users us 
       JOIN urls ur 
         ON ur."userId"=us.id 

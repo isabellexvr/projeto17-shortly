@@ -7,7 +7,7 @@ export default async function findRanking(req, res) {
             users.id, 
             users.name, 
             COUNT(urls."userId") AS "linksCount", 
-            COUNT(urls.visits) AS "visitCount"
+            COUNT(urls."visitsCounter") AS "visitCount"
         FROM users
         JOIN urls ON urls."userId"=users.id
         GROUP BY users.id

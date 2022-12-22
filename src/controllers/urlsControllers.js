@@ -3,23 +3,23 @@ import { connectionDB } from "../database/db.js";
 
 export async function shortUrl(req, res) {
   const { url } = req.body;
-  const shortedUrl = nanoid(8);
+  const shortenedUrl = nanoid(8);
   const userId = res.locals.userId;
   try {
     const verifyUrl = await connectionDB.query(
-      `SELECT * FROM urls WHERE "userId"=$1 AND url=$2;`,
+      `SELECT * FROM urls WHERE "userId"=$1 AND "originalUrl"=$2;`,
       [userId, url]
     );
     if (verifyUrl.rows.length > 0) {
       return res.status(404).send("Esta mesma url já foi encurtada.");
     }
     await connectionDB.query(
-      `INSERT INTO urls ("shortUrl", url, "userId") 
+      `INSERT INTO urls ("shortenedUrl", "originalUrl", "userId") 
       VALUES ($1, $2, $3);`,
-      [shortedUrl, url, userId]
+      [shortenedUrl, url, userId]
     );
     res.status(201).send({
-      shortUrl: shortedUrl,
+      shortUrl: shortenedUrl,
     });
   } catch (err) {
     res.status(500).send(err.message);
@@ -50,13 +50,13 @@ export async function redirectToUrl(req, res) {
   const { shortUrl } = req.params;
   try {
     const { rows } = await connectionDB.query(
-      `SELECT * FROM urls WHERE "shortUrl"=$1`,
+      `SELECT * FROM urls WHERE "shortenedUrl"=$1`,
       [shortUrl]
     );
     if (rows.length < 1) {
       return res.status(404).send("A url correspondente não foi encontrada.");
     }
-    await connectionDB.query(`UPDATE urls SET visits=$1 WHERE "shortUrl"=$2`, [
+    await connectionDB.query(`UPDATE urls SET visits=$1 WHERE "shortenedUrl"=$2`, [
       rows[0].visits + 1,
       shortUrl,
     ]);
