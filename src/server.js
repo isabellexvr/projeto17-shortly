@@ -4,6 +4,9 @@ import authRoutes from "./routes/authRoutes.js";
 import urlsRoutes from "./routes/urlsRoutes.js";
 import usersRoutes from "./routes/usersRoute.js";
 import rankingRoute from "./routes/rankingRoute.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -17,4 +20,6 @@ app.use(usersRoutes);
 
 app.use(rankingRoute);
 
-app.listen(4000, () => console.log("Server is running in port 4000"));
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => console.log("Server is running in port 4000"));
