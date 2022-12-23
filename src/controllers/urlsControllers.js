@@ -60,7 +60,7 @@ export async function redirectToUrl(req, res) {
       rows[0].visitsCounter + 1,
       shortUrl,
     ]);
-    res.redirect(200, rows[0].originalUrl);
+    res.redirect(`${rows[0].originalUrl}`);
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
