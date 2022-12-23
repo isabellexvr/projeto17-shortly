@@ -158,7 +158,7 @@ INSERT INTO public.urls VALUES (1, 'https://www.youtube.com/watch?v=bvByhqInVRs&
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Carlinho Chupa Pica', 'carlinhololzeiro@gmail.com', '$2b$10$GAyGY/w9UjPd2Wc7qGgp9ejRfrmrUzdAOggMNaY2RQuClbncWLG1q', '2022-12-22');
+INSERT INTO public.users VALUES (1, 'Carlinho do LoL', 'carlinhololzeiro@gmail.com', '$2b$10$GAyGY/w9UjPd2Wc7qGgp9ejRfrmrUzdAOggMNaY2RQuClbncWLG1q', '2022-12-22');
 INSERT INTO public.users VALUES (2, 'Ana a Grande', 'anagrande@gmail.com', '$2b$10$JB.S1B..czBW5cJP1YB.u.BxuqGrD.RG/8LJ1SPfg5jCAghbBIkuu', '2022-12-22');
 INSERT INTO public.users VALUES (3, 'Fulano Cicrano', 'fulano@gmail.com', '$2b$10$Ec0BjklrLbCDJwbJFd7z1e3Ykhp.qN7Q2YsTcYM6.25cMBo5QsxFW', '2022-12-22');
 
