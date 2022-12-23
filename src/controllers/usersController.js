@@ -11,7 +11,7 @@ export default async function findAllUrlsById(req, res) {
         COUNT(ur."visitsCounter") AS "visitsCount", 
         ur.id AS "urlId",
         ur."shortenedUrl",
-        ur.url,
+        ur."originalUrl",
         ur."visitsCounter" AS "singleUrlVisits"
       FROM users us 
       JOIN urls ur 
@@ -23,7 +23,6 @@ export default async function findAllUrlsById(req, res) {
         `,
       [userId]
     );
-
     res.send({
       id: rows[0].id,
       name: rows[0].name,

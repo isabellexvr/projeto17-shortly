@@ -4,7 +4,6 @@ import findAllUrlsById from "../controllers/usersController.js";
 
 const usersRoutes = Router();
 
-usersRoutes.use(tokenValidation)
-usersRoutes.get("/users/me", findAllUrlsById)
+usersRoutes.get("/users/me", tokenValidation, findAllUrlsById)
 
 export default usersRoutes
