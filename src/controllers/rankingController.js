@@ -1,4 +1,3 @@
-import { connectionDB } from "../database/db.js";
 import queryRanking from "../repositories/rankingRepositorie.js";
 
 export default async function findRanking(req, res) {
