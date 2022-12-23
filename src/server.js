@@ -14,11 +14,11 @@ app.use(express.json());
 
 app.use(authRoutes);
 
+app.use(rankingRoute);
+
 app.use(urlsRoutes);
 
 app.use(usersRoutes);
-
-app.use(rankingRoute);
 
 const port = process.env.PORT || 4000;
 
