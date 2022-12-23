@@ -56,11 +56,11 @@ export async function redirectToUrl(req, res) {
     if (rows.length < 1) {
       return res.status(404).send("A url correspondente não foi encontrada.");
     }
-    await connectionDB.query(`UPDATE urls SET visits=$1 WHERE "shortenedUrl"=$2`, [
-      rows[0].visits + 1,
+    await connectionDB.query(`UPDATE urls SET "visitsCounter"=$1 WHERE "shortenedUrl"=$2`, [
+      rows[0].visitsCounter + 1,
       shortUrl,
     ]);
-    res.redirect(200, rows[0].url);
+    res.redirect(200, rows[0].originalUrl);
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
