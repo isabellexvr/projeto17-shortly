@@ -20,25 +20,25 @@ export function findUrlFromId(id) {
 }
 
 export function findUrlFromShortUrl(shortUrl) {
-  return connectionDB.query(`SELECT * FROM urls WHERE "shortenedUrl"=$1`, [
+  return connectionDB.query(`SELECT * FROM urls WHERE "shortenedUrl"=$1;`, [
     shortUrl,
   ]);
 }
 
 export function addOneMoreVisit(count, shortUrl) {
   return connectionDB.query(
-    `UPDATE urls SET "visitsCounter"=$1 WHERE "shortenedUrl"=$2`,
+    `UPDATE urls SET "visitsCounter"=$1 WHERE "shortenedUrl"=$2;`,
     [count, shortUrl]
   );
 }
 
 export function findUrlFromUserAndUrlId(id, userId) {
-  return connectionDB.query(`SELECT * FROM urls WHERE id=$1 AND "userId"=$2`, [
+  return connectionDB.query(`SELECT * FROM urls WHERE id=$1 AND "userId"=$2;`, [
     id,
     userId,
   ]);
 }
 
 export function removeUrl(id) {
-  return connectionDB.query(`DELETE FROM urls WHERE id=$1`, [id]);
+  return connectionDB.query(`DELETE FROM urls WHERE id=$1;`, [id]);
 }
