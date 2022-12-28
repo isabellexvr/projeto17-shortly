@@ -35,6 +35,7 @@ export default async function loginValidation(req, res, next) {
       return res.status(401).send("Senha incorreta.");
     }
     res.locals.userId = userExists.rows[0].id;
+    res.locals.userName = userExists.rows[0].name
   } catch (err) {
     res.status(500).send(err.message);
     console.log(err.message);
