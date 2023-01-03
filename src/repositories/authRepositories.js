@@ -16,7 +16,7 @@ export function insertSession(token, userId) {
 
 export function deleteSession(token, userId) {
   return connectionDB.query(
-    `DELETE FROM sessions WHERE token=$1 AND userId=$2;`,
+    `DELETE FROM sessions WHERE token=$1 AND "userId"=$2;`,
     [token, userId]
   );
 }
