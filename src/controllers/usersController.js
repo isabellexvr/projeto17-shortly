@@ -1,4 +1,4 @@
-import findUrls from "../repositories/userRepositorie.js";
+import { findUrls } from "../repositories/userRepositorie.js";
 
 export default async function findAllUrlsById(req, res) {
   const userId = res.locals.userId;

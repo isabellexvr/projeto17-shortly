@@ -1,6 +1,6 @@
 import { connectionDB } from "../database/db.js";
 
-export default function findUrls(userId) {
+export function findUrls(userId) {
   return connectionDB.query(
     `
         SELECT 
@@ -20,5 +20,12 @@ export default function findUrls(userId) {
           ur.id;
           `,
     [userId]
+  );
+}
+
+export function findUserByEmail(email) {
+  return connectionDB.query(
+    "SELECT * FROM users WHERE email=$1",
+    [email]
   );
 }
