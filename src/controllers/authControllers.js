@@ -9,30 +9,23 @@ import authServices from "../services/authServices.js";
 export async function registration(req, res) {
   const { name, email, password, confirmPassword } = req.body;
   try {
-    await authServices.checkNewUserInfo(name, email, password, confirmPassword);
+    await authServices.register(name, email, password, confirmPassword);
     res.status(201).send("Usuário registrado com sucesso!");
   } catch (err) {
     return res.status(err.code).send(err.message);
   }
 }
 
-
-
 export async function login(req, res) {
-  const token = uuidV4();
-  const userId = res.locals.userId;
-  const userName = res.locals.userName;
+  const { email, password } = req.body;
   try {
-    await insertSession(token, userId);
-    console.log(token);
+    const userInfo = await authServices.login(email, password);
     res.status(200).send({
-      token,
-      userName: userName,
+      ...userInfo,
       message: "Login realizado com sucesso!",
     });
   } catch (err) {
-    res.status(500).send(err.message);
-    console.log(err.message);
+    !err.code ? res.status(500).send(err.message) : res.status(err.code).send(err.message)
   }
 }
 

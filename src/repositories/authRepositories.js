@@ -20,3 +20,9 @@ export function deleteSession(token, userId) {
     [token, userId]
   );
 }
+
+export function findSessionByUserId(userId) {
+  return connectionDB.query(`SELECT * FROM sessions WHERE "userId"=$1`, [
+    userId,
+  ]);
+}

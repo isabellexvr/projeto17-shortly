@@ -25,7 +25,7 @@ export function findUrls(userId) {
 
 export function findUserByEmail(email) {
   return connectionDB.query(
-    "SELECT * FROM users WHERE email=$1",
+    "SELECT * FROM users WHERE email=$1;",
     [email]
   );
 }
