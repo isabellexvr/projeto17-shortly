@@ -1,6 +1,5 @@
 # Shortly: API de Encurtamento de Links
 
-<img width="220px" align="right" src="./trackit.gif"/>
 <h2>Sobre:</h2>
 
 <div text-align="center" align="left">
